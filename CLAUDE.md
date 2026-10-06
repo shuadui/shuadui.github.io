@@ -1,7 +1,7 @@
 # Richart 今天切哪個 — 開發上下文
 
 ## 專案
-台新 Richart 卡 8 個回饋方案的查詢小工具（非官方），部署在 GitHub Pages：https://yachiof94.github.io/richart-tool/
+台新 Richart 卡 8 個回饋方案的查詢小工具（非官方），部署在 GitHub Pages：https://shuadui.github.io/（repo `shuadui/shuadui.github.io`，屬於 shuadui 組織）
 原始執行計畫在 `notes/richart_tool_plan.md`（本機筆記，不進版控）。
 
 ## 技術
@@ -24,7 +24,7 @@
 - 任何程式碼修改前，先說明計畫，等確認後才動工
 - 不自行 push、不開 PR；push 前先列出 remote URL、分支、commit 作者、要推的檔案，等確認
 - commit 作者用 repo-local 設定（GitHub noreply 信箱），不要改用全域 git 身分；commit 訊息不加 Co-Authored-By
-- remote URL 要內嵌帳號（`https://yachiof94@github.com/yachiof94/richart-tool.git`），Git Credential Manager 才會挑對帳號的憑證
+- remote URL 要內嵌帳號（`https://<帳號>@github.com/shuadui/shuadui.github.io.git`），Git Credential Manager 才會挑對帳號的憑證；實際帳號只放在本機 git 設定，不寫進公開檔案
 
 ## 本機測試
 在專案根目錄執行 `python -m http.server 8765 --bind 127.0.0.1`，開 `http://127.0.0.1:8765/test.html`。
