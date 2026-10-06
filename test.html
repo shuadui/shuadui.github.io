@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>測試中…</title>
+  <style>
+    body { margin: 0 auto; max-width: 900px; padding: 16px; font: 15px/1.5 system-ui, "Microsoft JhengHei", sans-serif; background: #fff; color: #1c2026; }
+    @media (prefers-color-scheme: dark) { body { background: #131518; color: #e7e9ec; } }
+    table { width: 100%; border-collapse: collapse; }
+    td { padding: 6px 8px; border-top: 1px solid #8884; vertical-align: top; }
+    .pass { color: #1a7a48; } .fail { color: #c0362c; font-weight: 600; }
+    .err { white-space: pre-wrap; color: #c0362c; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <h1>驗收測試</h1>
+  <p>計畫書第 5 節的驗收案例（§5-1～§5-12），加上搜尋、生效日、假日與資料完整性檢查。改了 <code>js/rules.js</code> 或 <code>data/</code> 之後開這頁確認。</p>
+  <p id="summary">執行中…</p>
+  <table id="results"></table>
+
+  <script src="js/rules.js"></script>
+  <script>
+  (async () => {
+    const R = window.RichartRules;
+    const load = (u) => fetch(u, { cache: 'no-cache' }).then((r) => { if (!r.ok) throw new Error(`${u} ${r.status}`); return r.json(); });
+    const [plans, extras, cal] = await Promise.all(['data/richart_plans.json', 'data/extras.json', 'data/holidays.json'].map(load));
+    const idx = R.buildIndex(plans, extras);
+    const CUR = 'Pay著刷';
+
+    const cases = [];
+    const test = (name, fn) => cases.push({ name, fn });
+    const eq = (actual, expected) => {
+      const a = JSON.stringify(actual), e = JSON.stringify(expected);
+      if (a !== e) throw new Error(`得到 ${a}\n預期 ${e}`);
+    };
+    const ctxFor = (date, baseRate = 0) => ({ date, holiday: R.holidayInfo(cal, date).holiday, baseRate });
+    const store = (name) => {
+      const s = R.findStore(idx, name);
+      if (!s) throw new Error(`找不到店家「${name}」`);
+      return s;
+    };
+    // 回傳有回饋的方案 [[方案, 回饋率], …]，依建議順序
+    const ranked = (storeName, { date = '2026-10-06', payment = '刷卡', overseas = false, kind = null, baseRate = 0 } = {}) => {
+      const item = storeName
+        ? { store: store(storeName), payment, overseas, dining: false }
+        : { store: null, payment, overseas: overseas || kind === 'overseas', dining: kind === 'dining' };
+      return R.rankPlans(idx, item, ctxFor(date, baseRate), CUR).filter((x) => x.r.rate > 0).map((x) => [x.plan.name, x.r.rate]);
+    };
+    const top = (q) => { const f = R.search(idx, q); return f.length ? f[0].store.name : null; };
+
+    // ---- 計畫書第 5 節（基準 2026-10-06 週二、刷卡）----
+    test('§5-1 全家＋台新Pay → Pay著刷 3.8%；次選 天天刷 3.3%', () =>
+      eq(ranked('全家', { payment: '台新Pay' }), [['Pay著刷', 3.8], ['天天刷', 3.3]]));
+    test('§5-2 全家＋刷卡 → 沒有方案有加碼回饋', () => eq(ranked('全家'), []));
+    test('§5-3 Netflix → Chill刷 5%；次選 數趣刷 3.3%', () => eq(ranked('Netflix'), [['Chill刷', 5], ['數趣刷', 3.3]]));
+    test('§5-4 lululemon → Chill刷 5%；次選 大筆刷 3.3%', () => eq(ranked('lululemon'), [['Chill刷', 5], ['大筆刷', 3.3]]));
+    test('§5-5 輸入「家樂福」→ 萬家福、樂家康 → 天天刷 3.3%', () => {
+      const hits = R.search(idx, '家樂福').filter((f) => f.score === 300).map((f) => f.store.name).sort();
+      eq(hits, ['樂家康', '萬家福'].sort());
+      hits.forEach((n) => eq(ranked(n), [['天天刷', 3.3]]));
+    });
+    test('§5-6 Uber：沒勾海外 → 天天刷 3.3%；勾海外 → 玩旅刷 3.3%', () => {
+      eq(ranked('Uber'), [['天天刷', 3.3]]);
+      eq(ranked('Uber', { overseas: true }), [['玩旅刷', 3.3]]);
+    });
+    test('§5-7 海底撈 → Chill刷 10%；次選 好饗刷 3.3%', () => eq(ranked('海底撈'), [['Chill刷', 10], ['好饗刷', 3.3]]));
+    test('§5-8 麥當勞＋刷卡 → 好饗刷 3.3%；麥當勞＋台新Pay → Pay著刷 3.8%', () => {
+      eq(ranked('麥當勞'), [['好饗刷', 3.3]]);
+      eq(ranked('麥當勞', { payment: '台新Pay' })[0], ['Pay著刷', 3.8]);
+    });
+    test('§5-9 2027-01-05：Netflix → 數趣刷 3.3%（Chill刷 已截止）；海底撈 → 好饗刷 3.3%', () => {
+      eq(ranked('Netflix', { date: '2027-01-05' }), [['數趣刷', 3.3]]);
+      eq(ranked('海底撈', { date: '2027-01-05' }), [['好饗刷', 3.3]]);
+    });
+    test('§5-10 2026-10-17（週六）：清單外的店＋刷卡 → 假日刷 2%', () =>
+      eq(ranked(null, { date: '2026-10-17', kind: 'general' }), [['假日刷', 2]]));
+    test('§5-11 海外（日本）＋台新Pay+ → Pay著刷 3.8%（另免 1.5% 手續費）；次選 玩旅刷 3.3%', () => {
+      eq(ranked(null, { kind: 'overseas', payment: '台新Pay+' }), [['Pay著刷', 3.8], ['玩旅刷', 3.3]]);
+      const r = R.rateFor(idx, 0, { store: null, payment: '台新Pay+', overseas: true, dining: false }, ctxFor('2026-10-06'));
+      if (!r.perk || !r.perk.includes('1.5%')) throw new Error('缺少「免 1.5% 國外交易手續費」');
+    });
+    test('§5-12 今日試算：全家 120（台新Pay）、Netflix 390、海底撈 1500', () => {
+      const items = [
+        { store: store('全家'), payment: '台新Pay', overseas: false, dining: false, amount: 120 },
+        { store: store('Netflix'), payment: '刷卡', overseas: false, dining: false, amount: 390 },
+        { store: store('海底撈'), payment: '刷卡', overseas: false, dining: false, amount: 1500 },
+      ];
+      const totals = R.calcDay(idx, items, ctxFor('2026-10-06'), CUR).map((t) => [t.plan.name, R.round1(t.total)]);
+      eq(totals, [['Chill刷', 169.5], ['好饗刷', 49.5], ['數趣刷', 12.9], ['Pay著刷', 4.6], ['天天刷', 4],
+        ['大筆刷', 0], ['玩旅刷', 0], ['假日刷', 0]]);
+    });
+
+    // ---- 搜尋 ----
+    test('搜尋：別名、大小寫、全半形、臺／台', () => {
+      eq(top('小七'), '7-11'); eq(top('711'), '7-11'); eq(top('7-ELEVEN'), '7-11'); eq(top('統一超商'), '7-11');
+      eq(top('FamilyMart'), '全家'); eq(top('ｎｅｔｆｌｉｘ'), 'Netflix'); eq(top('NETFLIX'), 'Netflix');
+      eq(top('台鐵'), '臺鐵'); eq(top('台中勤美'), '臺中勤美洲際酒店'); eq(top('Coupang'), '酷澎'); eq(top('PS5'), 'PlayStation');
+      eq(top('Switch'), 'Nintendo'); eq(top('麥當當'), '麥當勞'); eq(top("McDonald's"), '麥當勞');
+      eq(top('唐吉訶德'), '唐吉軻德'); eq(top('DON DON DONKI'), '唐吉軻德'); eq(top('Hi-Life'), '萊爾富');
+    });
+    test('搜尋：部分字串、括號註記、輸入比店名長', () => {
+      eq(top('長榮'), '長榮航空'); eq(top('SKM'), '新光三越'); eq(top('skm pay'), '新光三越');
+      eq(top('新光三越信義店'), '新光三越'); eq(top('誠品線上'), '誠品生活');
+    });
+    test('搜尋：多個候選', () => {
+      eq(R.search(idx, 'SOGO').map((f) => f.store.name).sort(), ['廣三SOGO', '遠東SOGO'].sort());
+      eq(R.search(idx, '三井').filter((f) => f.score === 300).length, 2);
+      eq(R.search(idx, '這家店不存在XYZ').length, 0);
+    });
+
+    // ---- 規則細節 ----
+    test('不回饋項目：萊爾富、繳稅費 用台新Pay 也沒有回饋（含假日）', () => {
+      eq(ranked('萊爾富', { payment: '台新Pay' }), []);
+      eq(ranked('繳稅費', { payment: '台新Pay', date: '2026-10-10' }), []);
+    });
+    test('四大超商在假日：7-11＋台新Pay 不算假日刷', () =>
+      eq(ranked('7-11', { payment: '台新Pay', date: '2026-10-10' }), [['Pay著刷', 3.8], ['天天刷', 3.3]]));
+    test('全家＋LINE Pay → 沒有回饋（全家只列在台新Pay）', () => eq(ranked('全家', { payment: 'LINE Pay' }), []));
+    test('假日＋清單外＋LINE Pay → Pay著刷 2.3%、假日刷 2%', () =>
+      eq(ranked(null, { kind: 'general', payment: 'LINE Pay', date: '2026-10-10' }), [['Pay著刷', 2.3], ['假日刷', 2]]));
+    test('新增生效日：Pinkoi 10/1 起', () => {
+      eq(ranked('Pinkoi', { date: '2026-09-30' }), []);
+      eq(ranked('Pinkoi', { date: '2026-10-01' }), [['Chill刷', 5]]);
+    });
+    test('新增生效日：智生活 7/8 起', () => {
+      eq(ranked('智生活', { date: '2026-07-07' }), []);
+      eq(ranked('智生活', { date: '2026-07-08' }), [['天天刷', 3.3]]);
+    });
+    test('新增生效日：全盈+Pay 7/8 起', () => {
+      eq(ranked(null, { kind: 'general', payment: '全盈+Pay', date: '2026-07-07' }), []);
+      eq(ranked(null, { kind: 'general', payment: '全盈+Pay', date: '2026-07-08' }), [['Pay著刷', 2.3]]);
+    });
+    test('活動期間：Chill刷 7/8 才開始', () => eq(ranked('Netflix', { date: '2026-07-07' }), [['數趣刷', 3.3]]));
+    test('海外的餐飲不算好饗刷「全臺餐飲」', () => eq(ranked(null, { kind: 'dining', overseas: true }), [['玩旅刷', 3.3]]));
+    test('基本回饋 0.3%：清單外＋刷卡 → 8 個方案都是 0.3%；不回饋項目仍然 0', () => {
+      const rows = ranked(null, { kind: 'general', baseRate: 0.3 });
+      eq([rows.length, rows.every((r) => r[1] === 0.3)], [8, true]);
+      eq(ranked('萊爾富', { baseRate: 0.3 }), []);
+    });
+    test('建議：目前方案與最佳同率 → 不用切', () => {
+      const item = { store: store('蝦皮'), payment: '刷卡', overseas: false, dining: false }; // Chill刷、數趣刷 都 3.3%
+      eq(R.advise(R.rankPlans(idx, item, ctxFor('2026-10-06'), '數趣刷'), '數趣刷').kind, 'stay');
+      eq(R.advise(R.rankPlans(idx, item, ctxFor('2026-10-06'), 'Pay著刷'), 'Pay著刷').kind, 'switch');
+    });
+    test('假日判斷（含補假）', () => {
+      const h = (d) => R.holidayInfo(cal, d).holiday;
+      eq(['2026-10-06', '2026-10-09', '2026-10-10', '2026-10-17', '2026-02-16', '2027-01-05', '2027-04-06', '2027-12-31'].map(h),
+        [false, true, true, true, true, false, true, true]);
+    });
+
+    // ---- 資料完整性 ----
+    test('資料：店家筆數與計畫書 2.4 一致（259 筆、243 家）', () => {
+      const entries = plans.plans.reduce((n, p) => n + p.channels.reduce((m, ch) => m + (ch.stores || []).length, 0), 0);
+      const unique = new Set(plans.plans.flatMap((p) => p.channels.flatMap((ch) => (ch.stores || []).map(R.stripNote)))).size;
+      const indexed = [...idx.stores.values()].filter((s) => s.hits.length).length; // 正規化沒有誤併不同店家
+      eq([entries, unique, indexed], [259, 243, 243]);
+    });
+    test('資料：extras.json 的店名都對得到', () => eq(idx.problems, []));
+    test('資料：餐飲標記 34 家', () => eq([...idx.stores.values()].filter((s) => s.dining).length, 34));
+
+    // ---- 執行 ----
+    const rows = [];
+    let fail = 0;
+    for (const c of cases) {
+      try {
+        c.fn();
+        rows.push(`<tr><td class="pass">✓</td><td>${c.name}</td></tr>`);
+      } catch (e) {
+        fail++;
+        const msg = String(e.message).replace(/[&<>]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[ch]));
+        rows.push(`<tr><td class="fail">✗</td><td>${c.name}<div class="err">${msg}</div></td></tr>`);
+      }
+    }
+    document.getElementById('results').innerHTML = rows.join('');
+    const pass = cases.length - fail;
+    document.getElementById('summary').innerHTML = fail
+      ? `<span class="fail">失敗 ${fail} 項</span>（通過 ${pass}/${cases.length}）`
+      : `<span class="pass">全部通過 ${pass}/${cases.length}</span>`;
+    document.title = fail ? `FAIL ${fail}/${cases.length}` : `PASS ${pass}/${cases.length}`;
+    window.testSummary = { total: cases.length, pass, fail };
+  })().catch((e) => {
+    document.getElementById('summary').textContent = `測試頁本身出錯：${e.message}`;
+    document.title = 'ERROR';
+    window.testSummary = { error: String(e.message) };
+  });
+  </script>
+</body>
+</html>

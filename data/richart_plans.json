@@ -1,0 +1,633 @@
+{
+  "card": "台新 Richart 卡",
+  "source": "台新 App「卡片權益」頁面截圖（2026-10-06 整理）",
+  "current_plan": "Pay著刷",
+  "notes": [
+    "rate_pct 為官方標示的回饋率（%），各方案標題皆標示為「最高」",
+    "stores_complete 為 false 表示官方只列部分店家（原文有「等」）",
+    "各方案「查看注意事項」內的細則不在截圖中，未收錄，以台新官網為準",
+    "lookup.by_store 由 plans 自動產生；同一店家有多個方案時依回饋率由高到低排序"
+  ],
+  "common_rules": {
+    "eligibility": "活動期間內成功設定台新帳戶扣繳台新信用卡帳款，次期帳單結帳後始享指定通路加碼回饋",
+    "bonus_cap": "各權益方案適用加碼回饋之消費金額，以持卡人之永久信用額度加計 NT$30 萬為限（實際可刷卡金額仍依信用額度為準）",
+    "switching": "回饋方案每日限轉換一次，轉換後當日即生效；每日 00:00–23:59 之消費依轉換後最終方案計算回饋",
+    "multi_card": "同持多張 Richart 卡或大買家聯名卡將一併轉換，同一正卡人當日僅能適用擇一方案",
+    "exclusions": "如屬不回饋項目（詳參官網說明）將不提供回饋，例如四大超商、繳稅費等",
+    "full_terms": "完整注意事項詳台新官網"
+  },
+  "plans": [
+    {
+      "name": "Pay著刷",
+      "max_rate_pct": 3.8,
+      "period": {"start": "2026-07-01", "end": "2027-12-31"},
+      "note": "以綁定之行動支付付款即適用；列出的店家為官方舉例",
+      "channels": [
+        {
+          "name": "台新Pay 綁定支付",
+          "rate_pct": 3.8,
+          "stores": ["全家", "7-11", "新光三越", "Richart Mart", "康是美", "IKEA", "NET"],
+          "stores_complete": false,
+          "note": "詳見台新Pay官網"
+        },
+        {
+          "name": "台新Pay 綁定支付(TWQR、台灣Pay)",
+          "rate_pct": 3.8,
+          "stores": ["神腦", "燦坤", "全國電子", "麥當勞", "美廉社", "大樹藥局"],
+          "stores_complete": false,
+          "note": "詳見台灣Pay場域"
+        },
+        {
+          "name": "台新Pay+ 綁定支付",
+          "rate_pct": 3.8,
+          "stores": ["LAWSON(日本)", "BicCamera(日本)", "GS25(韓國)", "DAISO(韓國)"],
+          "stores_complete": false,
+          "perk": "日韓交易再享免 1.5% 國外交易手續費",
+          "note": "詳見台新Pay+官網"
+        },
+        {"name": "LINE Pay 綁定支付", "rate_pct": 2.3},
+        {
+          "name": "全盈+Pay 綁定支付",
+          "rate_pct": 2.3,
+          "added": {"全盈+Pay": "2026-07-08"}
+        }
+      ]
+    },
+    {
+      "name": "Chill刷",
+      "max_rate_pct": 10,
+      "period": {"start": "2026-07-08", "end": "2026-12-31"},
+      "tagline": "懂你的快樂人格！",
+      "channels": [
+        {
+          "theme": "瘋聚會",
+          "name": "歡聚微醺",
+          "rate_pct": 10,
+          "stores": [
+            "詹記麻辣火鍋", "萬客什鍋", "海底撈", "屋馬燒肉", "茶六燒肉堂", "新村站著吃",
+            "燒肉政宗", "碳佐麻里", "雞湯大叔", "gonna共樂遊", "BRUN不然", "CAFE ACME",
+            "The Antipodean", "貳樓", "樂子 the Diner", "Fake Sober", "Draft Land",
+            "臺虎精釀(含啜飲室)", "ABV系列", "Bar TCRC", "Bar Home", "Phowa", "MOONROCK",
+            "台灣代駕", "Motodomo 愛車管家"
+          ],
+          "added": {"台灣代駕": "2026-10-01", "Motodomo 愛車管家": "2026-10-01"}
+        },
+        {
+          "theme": "瘋聚會",
+          "name": "日常續命",
+          "rate_pct": 10,
+          "stores": [
+            "50嵐", "得正", "五桐號", "龜記", "UG TEA", "叮哥茶飲", "CAFE!N", "%Arabica",
+            "COMPOSE COFFEE"
+          ]
+        },
+        {
+          "theme": "瘋聚會",
+          "name": "約會犒賞",
+          "rate_pct": 5,
+          "stores": ["饗饗 INPARADISE", "NAGOMI"]
+        },
+        {
+          "theme": "沉浸娛樂",
+          "name": "應援追星",
+          "rate_pct": 5,
+          "stores": ["WEVERSE", "K-MONSTAR", "微樂客", "五大唱片", "仙女樹", "FANME", "NOL"]
+        },
+        {
+          "theme": "沉浸娛樂",
+          "name": "熬夜追更",
+          "rate_pct": 5,
+          "stores": [
+            "巴哈姆特", "BOOK WALKER", "Animate", "樂天KOBO", "Readmoo讀墨", "Netflix", "Disney+",
+            "愛爾達"
+          ]
+        },
+        {
+          "theme": "沉浸娛樂",
+          "name": "數位外掛",
+          "rate_pct": 5,
+          "stores": ["Pinkoi"],
+          "added": {"Pinkoi": "2026-10-01"}
+        },
+        {
+          "theme": "沉浸娛樂",
+          "name": "數位外掛",
+          "rate_pct": 3.3,
+          "stores": [
+            "Apple 直營(含官網)", "Studio A", "DJI", "Insta360", "GoPro", "蝦皮", "淘寶", "酷澎",
+            "Uber Eats"
+          ]
+        },
+        {
+          "theme": "獨自升級",
+          "name": "營養補給",
+          "rate_pct": 5,
+          "stores": ["好好生醫", "POPCARE好在乎", "營養師輕食", "VITABOX", "MYPROTEIN", "UrMart 優馬選品"]
+        },
+        {
+          "theme": "獨自升級",
+          "name": "體態養成",
+          "rate_pct": 5,
+          "stores": [
+            "Anytime Fitness", "健身工廠", "World Gym", "超核心 Hypercore", "KX PILATES",
+            "虎鐵健身 X 器械皮拉提斯", "17FIT"
+          ]
+        },
+        {
+          "theme": "獨自升級",
+          "name": "運動品牌",
+          "rate_pct": 5,
+          "stores": [
+            "Adidas", "New Balance", "PUMA", "Onitsuka Tiger", "Nike", "HOKA", "Salomon",
+            "lululemon"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "天天刷",
+      "max_rate_pct": 3.3,
+      "period": {"start": "2026-07-01", "end": "2027-12-31"},
+      "channels": [
+        {
+          "name": "日常採買",
+          "rate_pct": 3.3,
+          "stores": ["全家", "7-11", "萬家福", "樂家康", "大買家", "唐吉軻德", "LOPIA", "智生活"],
+          "note": "全家、7-11 兩大超商限台新Pay；萬家福／樂家康即原家樂福量販／超市",
+          "added": {"智生活": "2026-07-08"}
+        },
+        {
+          "name": "通勤交通",
+          "rate_pct": 3.3,
+          "stores": ["臺鐵", "高鐵", "台灣大車隊", "LINEGO", "Yoxi", "Uber", "台灣Bolt"]
+        },
+        {
+          "name": "加油充電",
+          "rate_pct": 3.3,
+          "stores": [
+            "中油直營", "全國加油", "全國特急電", "源點EVOASIS", "華城電能EVALUE", "USPACE",
+            "Autopass(車麻吉)"
+          ]
+        },
+        {
+          "name": "藥妝藥局",
+          "rate_pct": 3.3,
+          "stores": [
+            "寶雅", "康是美", "屈臣氏", "杏一醫療", "大樹藥局", "丁丁藥局", "佑全保健藥妝",
+            "健康人生藥局"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "大筆刷",
+      "max_rate_pct": 3.3,
+      "period": {"start": "2026-07-01", "end": "2027-12-31"},
+      "channels": [
+        {
+          "name": "指定百貨",
+          "rate_pct": 3.3,
+          "stores": [
+            "新光三越(含skm pay)", "遠東百貨", "遠東SOGO", "漢神巨蛋", "漢神百貨", "漢神洲際",
+            "微風", "台北101", "遠東巨城", "廣三SOGO", "南紡購物中心", "誠品生活(含誠品線上)",
+            "京站", "三創生活", "夢時代", "統一時代(含DREAM PLAZA)", "中友百貨",
+            "Mitsui Shopping Park LaLaport(南港/台中)"
+          ]
+        },
+        {
+          "name": "指定Outlet",
+          "rate_pct": 3.3,
+          "stores": ["MITSUI OUTLET PARK(林口/台中港/台南)", "華泰名品城", "SKM Park Outlets"]
+        },
+        {
+          "name": "居家裝修",
+          "rate_pct": 3.3,
+          "stores": ["IKEA", "特力屋", "HOLA", "宜得利", "瑪黑家居"]
+        },
+        {
+          "name": "時尚品味",
+          "rate_pct": 3.3,
+          "stores": ["UNIQLO", "GU", "ZARA", "NET", "lululemon"]
+        }
+      ]
+    },
+    {
+      "name": "好饗刷",
+      "max_rate_pct": 3.3,
+      "period": {"start": "2026-07-01", "end": "2027-12-31"},
+      "channels": [
+        {
+          "name": "全臺餐飲、王品瘋Pay",
+          "rate_pct": 3.3,
+          "scope": "全臺餐飲(不含餐券)",
+          "stores": ["王品瘋Pay"]
+        },
+        {
+          "name": "外送平台",
+          "rate_pct": 3.3,
+          "stores": ["Uber Eats", "Foodpanda"]
+        },
+        {
+          "name": "購票娛樂",
+          "rate_pct": 3.3,
+          "stores": ["拓元售票", "KKTIX", "年代售票", "寬宏售票", "OPENTIX兩廳院文化生活", "FunNow"]
+        },
+        {
+          "name": "指定飯店",
+          "rate_pct": 3.3,
+          "stores": [
+            "晶華國際酒店集團", "雲朗觀光", "台灣萬豪國際集團旗下飯店", "煙波國際觀光集團",
+            "老爺酒店集團", "福華集團", "漢來飯店事業群", "台北君悅酒店", "高雄洲際酒店",
+            "臺中勤美洲際酒店", "礁溪寒沐酒店"
+          ],
+          "note": "不含餐券、住宿券等票券；適用加碼飯店詳注意事項"
+        },
+        {
+          "name": "指定KTV",
+          "rate_pct": 3.3,
+          "stores": ["錢櫃", "好樂迪", "ONCOR", "sing!go", "享溫馨"]
+        }
+      ]
+    },
+    {
+      "name": "數趣刷",
+      "max_rate_pct": 3.3,
+      "period": {"start": "2026-07-01", "end": "2027-12-31"},
+      "channels": [
+        {
+          "name": "網購平台",
+          "rate_pct": 3.3,
+          "stores": [
+            "蝦皮", "momo", "酷澎(Coupang)", "PChome", "淘寶", "Amazon", "東森", "博客來",
+            "Richart Mart", "PayEasy", "iHerb", "SHEIN", "Farfetch", "Olive Young"
+          ]
+        },
+        {
+          "name": "線上課程",
+          "rate_pct": 3.3,
+          "stores": ["知識衛星", "Amazing Talker", "Tutor ABC", "Hahow", "PressPlay"]
+        },
+        {
+          "name": "遊戲影音",
+          "rate_pct": 3.3,
+          "stores": ["MyCard", "遊戲橘子", "Steam", "PlayStation", "Nintendo", "Netflix", "Disney+"]
+        },
+        {
+          "name": "AI服務",
+          "rate_pct": 3.3,
+          "stores": ["ChatGPT", "Notion", "Canva", "Perplexity", "Claude"]
+        }
+      ]
+    },
+    {
+      "name": "玩旅刷",
+      "max_rate_pct": 3.3,
+      "period": {"start": "2026-07-01", "end": "2027-12-31"},
+      "channels": [
+        {"name": "海外消費", "rate_pct": 3.3, "scope": "海外消費(含實體及線上、歐洲國家交易)"},
+        {
+          "name": "海外交通/網路",
+          "rate_pct": 3.3,
+          "stores": ["Uber", "Grab", "SUICA", "ICOCA", "PASMO", "WOWPASS", "AIRSIM"]
+        },
+        {
+          "name": "航空公司",
+          "rate_pct": 3.3,
+          "stores": [
+            "中華航空", "長榮航空", "星宇航空", "台灣虎航", "國泰航空", "華信航空", "立榮航空",
+            "樂桃航空", "阿聯酋航空", "亞洲航空", "酷航", "捷星航空", "新加坡航空", "日本航空",
+            "越捷航空"
+          ]
+        },
+        {
+          "name": "訂房平台",
+          "rate_pct": 3.3,
+          "stores": ["Klook", "KKday", "Agoda", "Booking.com", "Trip.com", "Airbnb", "Hotels.com", "Expedia"]
+        },
+        {
+          "name": "旅行社",
+          "rate_pct": 3.3,
+          "stores": [
+            "雄獅旅遊", "易遊網", "東南旅遊", "可樂旅遊", "長汎假期", "五福旅遊", "喜鴻假期",
+            "易飛旅遊", "燦星旅遊", "加利利旅行社", "鳳凰國際旅行社", "山富旅遊", "行健旅遊"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "假日刷",
+      "max_rate_pct": 2,
+      "period": {"start": "2026-07-01", "end": "2027-12-31"},
+      "channels": [
+        {
+          "name": "節假日不限通路",
+          "rate_pct": 2,
+          "scope": "國內節假日不限通路(含保費)，含 LINE Pay 綁定支付",
+          "note": "節假日依行政院人事行政總處公告之國定例假日為準(不含天災假)；不回饋項目如四大超商、繳稅費等不適用"
+        }
+      ]
+    }
+  ],
+  "lookup": {
+    "general_scopes": [
+      {"plan": "Pay著刷", "scope": "台新Pay／台新Pay+ 綁定支付", "rate_pct": 3.8},
+      {"plan": "Pay著刷", "scope": "LINE Pay／全盈+Pay 綁定支付", "rate_pct": 2.3},
+      {"plan": "好饗刷", "scope": "全臺餐飲(不含餐券)", "rate_pct": 3.3},
+      {"plan": "玩旅刷", "scope": "海外消費(含實體及線上、歐洲國家交易)", "rate_pct": 3.3},
+      {"plan": "假日刷", "scope": "國定例假日不限通路(含保費)", "rate_pct": 2}
+    ],
+    "by_store": {
+      "全家": [
+        {"plan": "Pay著刷", "channel": "台新Pay 綁定支付", "rate_pct": 3.8},
+        {"plan": "天天刷", "channel": "日常採買", "rate_pct": 3.3}
+      ],
+      "7-11": [
+        {"plan": "Pay著刷", "channel": "台新Pay 綁定支付", "rate_pct": 3.8},
+        {"plan": "天天刷", "channel": "日常採買", "rate_pct": 3.3}
+      ],
+      "新光三越": [
+        {"plan": "Pay著刷", "channel": "台新Pay 綁定支付", "rate_pct": 3.8},
+        {"plan": "大筆刷", "channel": "指定百貨", "rate_pct": 3.3}
+      ],
+      "Richart Mart": [
+        {"plan": "Pay著刷", "channel": "台新Pay 綁定支付", "rate_pct": 3.8},
+        {"plan": "數趣刷", "channel": "網購平台", "rate_pct": 3.3}
+      ],
+      "康是美": [
+        {"plan": "Pay著刷", "channel": "台新Pay 綁定支付", "rate_pct": 3.8},
+        {"plan": "天天刷", "channel": "藥妝藥局", "rate_pct": 3.3}
+      ],
+      "IKEA": [
+        {"plan": "Pay著刷", "channel": "台新Pay 綁定支付", "rate_pct": 3.8},
+        {"plan": "大筆刷", "channel": "居家裝修", "rate_pct": 3.3}
+      ],
+      "NET": [
+        {"plan": "Pay著刷", "channel": "台新Pay 綁定支付", "rate_pct": 3.8},
+        {"plan": "大筆刷", "channel": "時尚品味", "rate_pct": 3.3}
+      ],
+      "神腦": [{"plan": "Pay著刷", "channel": "台新Pay 綁定支付(TWQR、台灣Pay)", "rate_pct": 3.8}],
+      "燦坤": [{"plan": "Pay著刷", "channel": "台新Pay 綁定支付(TWQR、台灣Pay)", "rate_pct": 3.8}],
+      "全國電子": [{"plan": "Pay著刷", "channel": "台新Pay 綁定支付(TWQR、台灣Pay)", "rate_pct": 3.8}],
+      "麥當勞": [{"plan": "Pay著刷", "channel": "台新Pay 綁定支付(TWQR、台灣Pay)", "rate_pct": 3.8}],
+      "美廉社": [{"plan": "Pay著刷", "channel": "台新Pay 綁定支付(TWQR、台灣Pay)", "rate_pct": 3.8}],
+      "大樹藥局": [
+        {"plan": "Pay著刷", "channel": "台新Pay 綁定支付(TWQR、台灣Pay)", "rate_pct": 3.8},
+        {"plan": "天天刷", "channel": "藥妝藥局", "rate_pct": 3.3}
+      ],
+      "LAWSON": [{"plan": "Pay著刷", "channel": "台新Pay+ 綁定支付", "rate_pct": 3.8}],
+      "BicCamera": [{"plan": "Pay著刷", "channel": "台新Pay+ 綁定支付", "rate_pct": 3.8}],
+      "GS25": [{"plan": "Pay著刷", "channel": "台新Pay+ 綁定支付", "rate_pct": 3.8}],
+      "DAISO": [{"plan": "Pay著刷", "channel": "台新Pay+ 綁定支付", "rate_pct": 3.8}],
+      "詹記麻辣火鍋": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "萬客什鍋": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "海底撈": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "屋馬燒肉": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "茶六燒肉堂": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "新村站著吃": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "燒肉政宗": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "碳佐麻里": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "雞湯大叔": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "gonna共樂遊": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "BRUN不然": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "CAFE ACME": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "The Antipodean": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "貳樓": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "樂子 the Diner": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "Fake Sober": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "Draft Land": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "臺虎精釀": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "ABV系列": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "Bar TCRC": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "Bar Home": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "Phowa": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "MOONROCK": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "台灣代駕": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "Motodomo 愛車管家": [{"plan": "Chill刷", "channel": "歡聚微醺", "rate_pct": 10}],
+      "50嵐": [{"plan": "Chill刷", "channel": "日常續命", "rate_pct": 10}],
+      "得正": [{"plan": "Chill刷", "channel": "日常續命", "rate_pct": 10}],
+      "五桐號": [{"plan": "Chill刷", "channel": "日常續命", "rate_pct": 10}],
+      "龜記": [{"plan": "Chill刷", "channel": "日常續命", "rate_pct": 10}],
+      "UG TEA": [{"plan": "Chill刷", "channel": "日常續命", "rate_pct": 10}],
+      "叮哥茶飲": [{"plan": "Chill刷", "channel": "日常續命", "rate_pct": 10}],
+      "CAFE!N": [{"plan": "Chill刷", "channel": "日常續命", "rate_pct": 10}],
+      "%Arabica": [{"plan": "Chill刷", "channel": "日常續命", "rate_pct": 10}],
+      "COMPOSE COFFEE": [{"plan": "Chill刷", "channel": "日常續命", "rate_pct": 10}],
+      "饗饗 INPARADISE": [{"plan": "Chill刷", "channel": "約會犒賞", "rate_pct": 5}],
+      "NAGOMI": [{"plan": "Chill刷", "channel": "約會犒賞", "rate_pct": 5}],
+      "WEVERSE": [{"plan": "Chill刷", "channel": "應援追星", "rate_pct": 5}],
+      "K-MONSTAR": [{"plan": "Chill刷", "channel": "應援追星", "rate_pct": 5}],
+      "微樂客": [{"plan": "Chill刷", "channel": "應援追星", "rate_pct": 5}],
+      "五大唱片": [{"plan": "Chill刷", "channel": "應援追星", "rate_pct": 5}],
+      "仙女樹": [{"plan": "Chill刷", "channel": "應援追星", "rate_pct": 5}],
+      "FANME": [{"plan": "Chill刷", "channel": "應援追星", "rate_pct": 5}],
+      "NOL": [{"plan": "Chill刷", "channel": "應援追星", "rate_pct": 5}],
+      "巴哈姆特": [{"plan": "Chill刷", "channel": "熬夜追更", "rate_pct": 5}],
+      "BOOK WALKER": [{"plan": "Chill刷", "channel": "熬夜追更", "rate_pct": 5}],
+      "Animate": [{"plan": "Chill刷", "channel": "熬夜追更", "rate_pct": 5}],
+      "樂天KOBO": [{"plan": "Chill刷", "channel": "熬夜追更", "rate_pct": 5}],
+      "Readmoo讀墨": [{"plan": "Chill刷", "channel": "熬夜追更", "rate_pct": 5}],
+      "Netflix": [
+        {"plan": "Chill刷", "channel": "熬夜追更", "rate_pct": 5},
+        {"plan": "數趣刷", "channel": "遊戲影音", "rate_pct": 3.3}
+      ],
+      "Disney+": [
+        {"plan": "Chill刷", "channel": "熬夜追更", "rate_pct": 5},
+        {"plan": "數趣刷", "channel": "遊戲影音", "rate_pct": 3.3}
+      ],
+      "愛爾達": [{"plan": "Chill刷", "channel": "熬夜追更", "rate_pct": 5}],
+      "Pinkoi": [{"plan": "Chill刷", "channel": "數位外掛", "rate_pct": 5}],
+      "Apple 直營": [{"plan": "Chill刷", "channel": "數位外掛", "rate_pct": 3.3}],
+      "Studio A": [{"plan": "Chill刷", "channel": "數位外掛", "rate_pct": 3.3}],
+      "DJI": [{"plan": "Chill刷", "channel": "數位外掛", "rate_pct": 3.3}],
+      "Insta360": [{"plan": "Chill刷", "channel": "數位外掛", "rate_pct": 3.3}],
+      "GoPro": [{"plan": "Chill刷", "channel": "數位外掛", "rate_pct": 3.3}],
+      "蝦皮": [
+        {"plan": "Chill刷", "channel": "數位外掛", "rate_pct": 3.3},
+        {"plan": "數趣刷", "channel": "網購平台", "rate_pct": 3.3}
+      ],
+      "淘寶": [
+        {"plan": "Chill刷", "channel": "數位外掛", "rate_pct": 3.3},
+        {"plan": "數趣刷", "channel": "網購平台", "rate_pct": 3.3}
+      ],
+      "酷澎": [
+        {"plan": "Chill刷", "channel": "數位外掛", "rate_pct": 3.3},
+        {"plan": "數趣刷", "channel": "網購平台", "rate_pct": 3.3}
+      ],
+      "Uber Eats": [
+        {"plan": "Chill刷", "channel": "數位外掛", "rate_pct": 3.3},
+        {"plan": "好饗刷", "channel": "外送平台", "rate_pct": 3.3}
+      ],
+      "好好生醫": [{"plan": "Chill刷", "channel": "營養補給", "rate_pct": 5}],
+      "POPCARE好在乎": [{"plan": "Chill刷", "channel": "營養補給", "rate_pct": 5}],
+      "營養師輕食": [{"plan": "Chill刷", "channel": "營養補給", "rate_pct": 5}],
+      "VITABOX": [{"plan": "Chill刷", "channel": "營養補給", "rate_pct": 5}],
+      "MYPROTEIN": [{"plan": "Chill刷", "channel": "營養補給", "rate_pct": 5}],
+      "UrMart 優馬選品": [{"plan": "Chill刷", "channel": "營養補給", "rate_pct": 5}],
+      "Anytime Fitness": [{"plan": "Chill刷", "channel": "體態養成", "rate_pct": 5}],
+      "健身工廠": [{"plan": "Chill刷", "channel": "體態養成", "rate_pct": 5}],
+      "World Gym": [{"plan": "Chill刷", "channel": "體態養成", "rate_pct": 5}],
+      "超核心 Hypercore": [{"plan": "Chill刷", "channel": "體態養成", "rate_pct": 5}],
+      "KX PILATES": [{"plan": "Chill刷", "channel": "體態養成", "rate_pct": 5}],
+      "虎鐵健身 X 器械皮拉提斯": [{"plan": "Chill刷", "channel": "體態養成", "rate_pct": 5}],
+      "17FIT": [{"plan": "Chill刷", "channel": "體態養成", "rate_pct": 5}],
+      "Adidas": [{"plan": "Chill刷", "channel": "運動品牌", "rate_pct": 5}],
+      "New Balance": [{"plan": "Chill刷", "channel": "運動品牌", "rate_pct": 5}],
+      "PUMA": [{"plan": "Chill刷", "channel": "運動品牌", "rate_pct": 5}],
+      "Onitsuka Tiger": [{"plan": "Chill刷", "channel": "運動品牌", "rate_pct": 5}],
+      "Nike": [{"plan": "Chill刷", "channel": "運動品牌", "rate_pct": 5}],
+      "HOKA": [{"plan": "Chill刷", "channel": "運動品牌", "rate_pct": 5}],
+      "Salomon": [{"plan": "Chill刷", "channel": "運動品牌", "rate_pct": 5}],
+      "lululemon": [
+        {"plan": "Chill刷", "channel": "運動品牌", "rate_pct": 5},
+        {"plan": "大筆刷", "channel": "時尚品味", "rate_pct": 3.3}
+      ],
+      "萬家福": [{"plan": "天天刷", "channel": "日常採買", "rate_pct": 3.3}],
+      "樂家康": [{"plan": "天天刷", "channel": "日常採買", "rate_pct": 3.3}],
+      "大買家": [{"plan": "天天刷", "channel": "日常採買", "rate_pct": 3.3}],
+      "唐吉軻德": [{"plan": "天天刷", "channel": "日常採買", "rate_pct": 3.3}],
+      "LOPIA": [{"plan": "天天刷", "channel": "日常採買", "rate_pct": 3.3}],
+      "智生活": [{"plan": "天天刷", "channel": "日常採買", "rate_pct": 3.3}],
+      "臺鐵": [{"plan": "天天刷", "channel": "通勤交通", "rate_pct": 3.3}],
+      "高鐵": [{"plan": "天天刷", "channel": "通勤交通", "rate_pct": 3.3}],
+      "台灣大車隊": [{"plan": "天天刷", "channel": "通勤交通", "rate_pct": 3.3}],
+      "LINEGO": [{"plan": "天天刷", "channel": "通勤交通", "rate_pct": 3.3}],
+      "Yoxi": [{"plan": "天天刷", "channel": "通勤交通", "rate_pct": 3.3}],
+      "Uber": [
+        {"plan": "天天刷", "channel": "通勤交通", "rate_pct": 3.3},
+        {"plan": "玩旅刷", "channel": "海外交通/網路", "rate_pct": 3.3}
+      ],
+      "台灣Bolt": [{"plan": "天天刷", "channel": "通勤交通", "rate_pct": 3.3}],
+      "中油直營": [{"plan": "天天刷", "channel": "加油充電", "rate_pct": 3.3}],
+      "全國加油": [{"plan": "天天刷", "channel": "加油充電", "rate_pct": 3.3}],
+      "全國特急電": [{"plan": "天天刷", "channel": "加油充電", "rate_pct": 3.3}],
+      "源點EVOASIS": [{"plan": "天天刷", "channel": "加油充電", "rate_pct": 3.3}],
+      "華城電能EVALUE": [{"plan": "天天刷", "channel": "加油充電", "rate_pct": 3.3}],
+      "USPACE": [{"plan": "天天刷", "channel": "加油充電", "rate_pct": 3.3}],
+      "Autopass": [{"plan": "天天刷", "channel": "加油充電", "rate_pct": 3.3}],
+      "寶雅": [{"plan": "天天刷", "channel": "藥妝藥局", "rate_pct": 3.3}],
+      "屈臣氏": [{"plan": "天天刷", "channel": "藥妝藥局", "rate_pct": 3.3}],
+      "杏一醫療": [{"plan": "天天刷", "channel": "藥妝藥局", "rate_pct": 3.3}],
+      "丁丁藥局": [{"plan": "天天刷", "channel": "藥妝藥局", "rate_pct": 3.3}],
+      "佑全保健藥妝": [{"plan": "天天刷", "channel": "藥妝藥局", "rate_pct": 3.3}],
+      "健康人生藥局": [{"plan": "天天刷", "channel": "藥妝藥局", "rate_pct": 3.3}],
+      "遠東百貨": [{"plan": "大筆刷", "channel": "指定百貨", "rate_pct": 3.3}],
+      "遠東SOGO": [{"plan": "大筆刷", "channel": "指定百貨", "rate_pct": 3.3}],
+      "漢神巨蛋": [{"plan": "大筆刷", "channel": "指定百貨", "rate_pct": 3.3}],
+      "漢神百貨": [{"plan": "大筆刷", "channel": "指定百貨", "rate_pct": 3.3}],
+      "漢神洲際": [{"plan": "大筆刷", "channel": "指定百貨", "rate_pct": 3.3}],
+      "微風": [{"plan": "大筆刷", "channel": "指定百貨", "rate_pct": 3.3}],
+      "台北101": [{"plan": "大筆刷", "channel": "指定百貨", "rate_pct": 3.3}],
+      "遠東巨城": [{"plan": "大筆刷", "channel": "指定百貨", "rate_pct": 3.3}],
+      "廣三SOGO": [{"plan": "大筆刷", "channel": "指定百貨", "rate_pct": 3.3}],
+      "南紡購物中心": [{"plan": "大筆刷", "channel": "指定百貨", "rate_pct": 3.3}],
+      "誠品生活": [{"plan": "大筆刷", "channel": "指定百貨", "rate_pct": 3.3}],
+      "京站": [{"plan": "大筆刷", "channel": "指定百貨", "rate_pct": 3.3}],
+      "三創生活": [{"plan": "大筆刷", "channel": "指定百貨", "rate_pct": 3.3}],
+      "夢時代": [{"plan": "大筆刷", "channel": "指定百貨", "rate_pct": 3.3}],
+      "統一時代": [{"plan": "大筆刷", "channel": "指定百貨", "rate_pct": 3.3}],
+      "中友百貨": [{"plan": "大筆刷", "channel": "指定百貨", "rate_pct": 3.3}],
+      "Mitsui Shopping Park LaLaport": [{"plan": "大筆刷", "channel": "指定百貨", "rate_pct": 3.3}],
+      "MITSUI OUTLET PARK": [{"plan": "大筆刷", "channel": "指定Outlet", "rate_pct": 3.3}],
+      "華泰名品城": [{"plan": "大筆刷", "channel": "指定Outlet", "rate_pct": 3.3}],
+      "SKM Park Outlets": [{"plan": "大筆刷", "channel": "指定Outlet", "rate_pct": 3.3}],
+      "特力屋": [{"plan": "大筆刷", "channel": "居家裝修", "rate_pct": 3.3}],
+      "HOLA": [{"plan": "大筆刷", "channel": "居家裝修", "rate_pct": 3.3}],
+      "宜得利": [{"plan": "大筆刷", "channel": "居家裝修", "rate_pct": 3.3}],
+      "瑪黑家居": [{"plan": "大筆刷", "channel": "居家裝修", "rate_pct": 3.3}],
+      "UNIQLO": [{"plan": "大筆刷", "channel": "時尚品味", "rate_pct": 3.3}],
+      "GU": [{"plan": "大筆刷", "channel": "時尚品味", "rate_pct": 3.3}],
+      "ZARA": [{"plan": "大筆刷", "channel": "時尚品味", "rate_pct": 3.3}],
+      "王品瘋Pay": [{"plan": "好饗刷", "channel": "全臺餐飲、王品瘋Pay", "rate_pct": 3.3}],
+      "Foodpanda": [{"plan": "好饗刷", "channel": "外送平台", "rate_pct": 3.3}],
+      "拓元售票": [{"plan": "好饗刷", "channel": "購票娛樂", "rate_pct": 3.3}],
+      "KKTIX": [{"plan": "好饗刷", "channel": "購票娛樂", "rate_pct": 3.3}],
+      "年代售票": [{"plan": "好饗刷", "channel": "購票娛樂", "rate_pct": 3.3}],
+      "寬宏售票": [{"plan": "好饗刷", "channel": "購票娛樂", "rate_pct": 3.3}],
+      "OPENTIX兩廳院文化生活": [{"plan": "好饗刷", "channel": "購票娛樂", "rate_pct": 3.3}],
+      "FunNow": [{"plan": "好饗刷", "channel": "購票娛樂", "rate_pct": 3.3}],
+      "晶華國際酒店集團": [{"plan": "好饗刷", "channel": "指定飯店", "rate_pct": 3.3}],
+      "雲朗觀光": [{"plan": "好饗刷", "channel": "指定飯店", "rate_pct": 3.3}],
+      "台灣萬豪國際集團旗下飯店": [{"plan": "好饗刷", "channel": "指定飯店", "rate_pct": 3.3}],
+      "煙波國際觀光集團": [{"plan": "好饗刷", "channel": "指定飯店", "rate_pct": 3.3}],
+      "老爺酒店集團": [{"plan": "好饗刷", "channel": "指定飯店", "rate_pct": 3.3}],
+      "福華集團": [{"plan": "好饗刷", "channel": "指定飯店", "rate_pct": 3.3}],
+      "漢來飯店事業群": [{"plan": "好饗刷", "channel": "指定飯店", "rate_pct": 3.3}],
+      "台北君悅酒店": [{"plan": "好饗刷", "channel": "指定飯店", "rate_pct": 3.3}],
+      "高雄洲際酒店": [{"plan": "好饗刷", "channel": "指定飯店", "rate_pct": 3.3}],
+      "臺中勤美洲際酒店": [{"plan": "好饗刷", "channel": "指定飯店", "rate_pct": 3.3}],
+      "礁溪寒沐酒店": [{"plan": "好饗刷", "channel": "指定飯店", "rate_pct": 3.3}],
+      "錢櫃": [{"plan": "好饗刷", "channel": "指定KTV", "rate_pct": 3.3}],
+      "好樂迪": [{"plan": "好饗刷", "channel": "指定KTV", "rate_pct": 3.3}],
+      "ONCOR": [{"plan": "好饗刷", "channel": "指定KTV", "rate_pct": 3.3}],
+      "sing!go": [{"plan": "好饗刷", "channel": "指定KTV", "rate_pct": 3.3}],
+      "享溫馨": [{"plan": "好饗刷", "channel": "指定KTV", "rate_pct": 3.3}],
+      "momo": [{"plan": "數趣刷", "channel": "網購平台", "rate_pct": 3.3}],
+      "PChome": [{"plan": "數趣刷", "channel": "網購平台", "rate_pct": 3.3}],
+      "Amazon": [{"plan": "數趣刷", "channel": "網購平台", "rate_pct": 3.3}],
+      "東森": [{"plan": "數趣刷", "channel": "網購平台", "rate_pct": 3.3}],
+      "博客來": [{"plan": "數趣刷", "channel": "網購平台", "rate_pct": 3.3}],
+      "PayEasy": [{"plan": "數趣刷", "channel": "網購平台", "rate_pct": 3.3}],
+      "iHerb": [{"plan": "數趣刷", "channel": "網購平台", "rate_pct": 3.3}],
+      "SHEIN": [{"plan": "數趣刷", "channel": "網購平台", "rate_pct": 3.3}],
+      "Farfetch": [{"plan": "數趣刷", "channel": "網購平台", "rate_pct": 3.3}],
+      "Olive Young": [{"plan": "數趣刷", "channel": "網購平台", "rate_pct": 3.3}],
+      "知識衛星": [{"plan": "數趣刷", "channel": "線上課程", "rate_pct": 3.3}],
+      "Amazing Talker": [{"plan": "數趣刷", "channel": "線上課程", "rate_pct": 3.3}],
+      "Tutor ABC": [{"plan": "數趣刷", "channel": "線上課程", "rate_pct": 3.3}],
+      "Hahow": [{"plan": "數趣刷", "channel": "線上課程", "rate_pct": 3.3}],
+      "PressPlay": [{"plan": "數趣刷", "channel": "線上課程", "rate_pct": 3.3}],
+      "MyCard": [{"plan": "數趣刷", "channel": "遊戲影音", "rate_pct": 3.3}],
+      "遊戲橘子": [{"plan": "數趣刷", "channel": "遊戲影音", "rate_pct": 3.3}],
+      "Steam": [{"plan": "數趣刷", "channel": "遊戲影音", "rate_pct": 3.3}],
+      "PlayStation": [{"plan": "數趣刷", "channel": "遊戲影音", "rate_pct": 3.3}],
+      "Nintendo": [{"plan": "數趣刷", "channel": "遊戲影音", "rate_pct": 3.3}],
+      "ChatGPT": [{"plan": "數趣刷", "channel": "AI服務", "rate_pct": 3.3}],
+      "Notion": [{"plan": "數趣刷", "channel": "AI服務", "rate_pct": 3.3}],
+      "Canva": [{"plan": "數趣刷", "channel": "AI服務", "rate_pct": 3.3}],
+      "Perplexity": [{"plan": "數趣刷", "channel": "AI服務", "rate_pct": 3.3}],
+      "Claude": [{"plan": "數趣刷", "channel": "AI服務", "rate_pct": 3.3}],
+      "Grab": [{"plan": "玩旅刷", "channel": "海外交通/網路", "rate_pct": 3.3}],
+      "SUICA": [{"plan": "玩旅刷", "channel": "海外交通/網路", "rate_pct": 3.3}],
+      "ICOCA": [{"plan": "玩旅刷", "channel": "海外交通/網路", "rate_pct": 3.3}],
+      "PASMO": [{"plan": "玩旅刷", "channel": "海外交通/網路", "rate_pct": 3.3}],
+      "WOWPASS": [{"plan": "玩旅刷", "channel": "海外交通/網路", "rate_pct": 3.3}],
+      "AIRSIM": [{"plan": "玩旅刷", "channel": "海外交通/網路", "rate_pct": 3.3}],
+      "中華航空": [{"plan": "玩旅刷", "channel": "航空公司", "rate_pct": 3.3}],
+      "長榮航空": [{"plan": "玩旅刷", "channel": "航空公司", "rate_pct": 3.3}],
+      "星宇航空": [{"plan": "玩旅刷", "channel": "航空公司", "rate_pct": 3.3}],
+      "台灣虎航": [{"plan": "玩旅刷", "channel": "航空公司", "rate_pct": 3.3}],
+      "國泰航空": [{"plan": "玩旅刷", "channel": "航空公司", "rate_pct": 3.3}],
+      "華信航空": [{"plan": "玩旅刷", "channel": "航空公司", "rate_pct": 3.3}],
+      "立榮航空": [{"plan": "玩旅刷", "channel": "航空公司", "rate_pct": 3.3}],
+      "樂桃航空": [{"plan": "玩旅刷", "channel": "航空公司", "rate_pct": 3.3}],
+      "阿聯酋航空": [{"plan": "玩旅刷", "channel": "航空公司", "rate_pct": 3.3}],
+      "亞洲航空": [{"plan": "玩旅刷", "channel": "航空公司", "rate_pct": 3.3}],
+      "酷航": [{"plan": "玩旅刷", "channel": "航空公司", "rate_pct": 3.3}],
+      "捷星航空": [{"plan": "玩旅刷", "channel": "航空公司", "rate_pct": 3.3}],
+      "新加坡航空": [{"plan": "玩旅刷", "channel": "航空公司", "rate_pct": 3.3}],
+      "日本航空": [{"plan": "玩旅刷", "channel": "航空公司", "rate_pct": 3.3}],
+      "越捷航空": [{"plan": "玩旅刷", "channel": "航空公司", "rate_pct": 3.3}],
+      "Klook": [{"plan": "玩旅刷", "channel": "訂房平台", "rate_pct": 3.3}],
+      "KKday": [{"plan": "玩旅刷", "channel": "訂房平台", "rate_pct": 3.3}],
+      "Agoda": [{"plan": "玩旅刷", "channel": "訂房平台", "rate_pct": 3.3}],
+      "Booking.com": [{"plan": "玩旅刷", "channel": "訂房平台", "rate_pct": 3.3}],
+      "Trip.com": [{"plan": "玩旅刷", "channel": "訂房平台", "rate_pct": 3.3}],
+      "Airbnb": [{"plan": "玩旅刷", "channel": "訂房平台", "rate_pct": 3.3}],
+      "Hotels.com": [{"plan": "玩旅刷", "channel": "訂房平台", "rate_pct": 3.3}],
+      "Expedia": [{"plan": "玩旅刷", "channel": "訂房平台", "rate_pct": 3.3}],
+      "雄獅旅遊": [{"plan": "玩旅刷", "channel": "旅行社", "rate_pct": 3.3}],
+      "易遊網": [{"plan": "玩旅刷", "channel": "旅行社", "rate_pct": 3.3}],
+      "東南旅遊": [{"plan": "玩旅刷", "channel": "旅行社", "rate_pct": 3.3}],
+      "可樂旅遊": [{"plan": "玩旅刷", "channel": "旅行社", "rate_pct": 3.3}],
+      "長汎假期": [{"plan": "玩旅刷", "channel": "旅行社", "rate_pct": 3.3}],
+      "五福旅遊": [{"plan": "玩旅刷", "channel": "旅行社", "rate_pct": 3.3}],
+      "喜鴻假期": [{"plan": "玩旅刷", "channel": "旅行社", "rate_pct": 3.3}],
+      "易飛旅遊": [{"plan": "玩旅刷", "channel": "旅行社", "rate_pct": 3.3}],
+      "燦星旅遊": [{"plan": "玩旅刷", "channel": "旅行社", "rate_pct": 3.3}],
+      "加利利旅行社": [{"plan": "玩旅刷", "channel": "旅行社", "rate_pct": 3.3}],
+      "鳳凰國際旅行社": [{"plan": "玩旅刷", "channel": "旅行社", "rate_pct": 3.3}],
+      "山富旅遊": [{"plan": "玩旅刷", "channel": "旅行社", "rate_pct": 3.3}],
+      "行健旅遊": [{"plan": "玩旅刷", "channel": "旅行社", "rate_pct": 3.3}]
+    }
+  }
+}

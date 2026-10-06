@@ -1,0 +1,44 @@
+# Richart 今天切哪個？
+
+台新 Richart 卡有 8 個回饋方案，每天可以切換一次。這個小網頁回答「今天該切哪個方案」。
+
+**網址：** https://yachiof94.github.io/richart-tool/
+
+> 非官方工具，與台新銀行無關。方案資料整理自 2026-10-06 的台新 App「卡片權益」畫面；回饋率是官方標示的「最高」值，實際以台新官網公告與注意事項為準。
+
+## 功能
+
+- **查店家**：輸入店名，列出最佳方案、回饋率、命中的類別與條件，並和「目前方案」比較要不要切。支援別名（家樂福 → 萬家福、樂家康）、大小寫與全半形。
+- **清單上沒有的店**：依消費類型（餐飲、海外消費、其他）＋付款方式＋是否假日判斷。
+- **今日試算**：輸入今天預計的幾筆消費，算出 8 個方案各自的總回饋。
+
+設定（目前方案、付款方式、基本回饋率）只存在瀏覽器的 localStorage；試算內容不儲存。頁面不載入任何外部資源。
+
+## 檔案
+
+| 路徑 | 內容 |
+|---|---|
+| `index.html`、`js/app.js`、`assets/css/style.css` | 頁面與介面 |
+| `js/rules.js` | 回饋判斷與搜尋（純函式，頁面與測試共用） |
+| `data/richart_plans.json` | 8 個方案的類別、回饋率、店家（App 畫面轉錄） |
+| `data/extras.json` | 補充規則：別名、算餐飲的店家、不回饋項目 |
+| `data/holidays.json` | 人事行政總處 115、116 年辦公日曆表的放假日 |
+| `tools/build_lookup.py` | 由 plans 重建 `lookup.by_store`，並印出各類別店家數 |
+| `test.html` | 驗收測試 |
+
+## 本機開發
+
+資料用 `fetch` 讀取，直接雙擊 `index.html` 會讀不到，要先起本機 server：
+
+```
+python -m http.server 8000 --bind 127.0.0.1
+```
+
+再開 http://127.0.0.1:8000/ 與 http://127.0.0.1:8000/test.html（測試要全部通過）。
+
+## 更新方案資料
+
+1. 依新的「卡片權益」畫面修改 `data/richart_plans.json` 的 `plans`；新增的店家記進該類別的 `added`（店名 → 生效日）。
+2. 執行 `python tools/build_lookup.py data/richart_plans.json`，核對印出的各類別店家數。
+3. 新店家如果是餐廳、需要別名或屬於不回饋項目，同步修改 `data/extras.json`。
+4. 開 `test.html` 確認全部通過，再 commit、push。

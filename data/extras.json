@@ -1,0 +1,56 @@
+{
+  "notes": [
+    "本檔是依計畫書 3.5、3.6 整理的補充規則，不是台新原文；台新原文轉錄在 richart_plans.json",
+    "店名一律用 richart_plans.json 去掉括號註記後的寫法（例：臺虎精釀(含啜飲室) → 臺虎精釀）；test.html 會檢查每個名稱都對得到",
+    "aliases：使用者可能輸入的別名 → 對應店家（可對到多家）",
+    "dining：好饗刷「全臺餐飲」要算進去的店家（計畫書 3.5 第 7 點）；Chill刷 到期後這些店改由好饗刷 計算",
+    "excluded_stores：不回饋項目，搜尋得到但沒有回饋；只有 plans 裡明列該店的類別例外（全家、7-11）",
+    "overseas_by_flag：國內、海外分屬不同類別的店家，用「海外」勾選區分（計畫書 3.5 第 8 點）"
+  ],
+  "aliases": {
+    "家樂福": ["萬家福", "樂家康"],
+    "Carrefour": ["萬家福", "樂家康"],
+    "小七": ["7-11"],
+    "7-ELEVEN": ["7-11"],
+    "統一超商": ["7-11"],
+    "FamilyMart": ["全家"],
+    "唐吉訶德": ["唐吉軻德"],
+    "驚安的殿堂": ["唐吉軻德"],
+    "DON DON DONKI": ["唐吉軻德"],
+    "Coupang": ["酷澎"],
+    "SKM": ["新光三越"],
+    "台鐵": ["臺鐵"],
+    "三井": ["MITSUI OUTLET PARK", "Mitsui Shopping Park LaLaport"],
+    "AirAsia": ["亞洲航空"],
+    "Jetstar": ["捷星航空"],
+    "Peach": ["樂桃航空"],
+    "Scoot": ["酷航"],
+    "China Airlines": ["中華航空"],
+    "EVA Air": ["長榮航空"],
+    "STARLUX": ["星宇航空"],
+    "Switch": ["Nintendo"],
+    "PS5": ["PlayStation"],
+    "McDonald's": ["麥當勞"],
+    "麥當當": ["麥當勞"],
+    "Hi-Life": ["萊爾富"],
+    "OK mart": ["OK超商"],
+    "繳稅": ["繳稅費"],
+    "稅費": ["繳稅費"]
+  },
+  "dining": [
+    "詹記麻辣火鍋", "萬客什鍋", "海底撈", "屋馬燒肉", "茶六燒肉堂", "新村站著吃", "燒肉政宗", "碳佐麻里",
+    "雞湯大叔", "BRUN不然", "CAFE ACME", "The Antipodean", "貳樓", "樂子 the Diner", "Fake Sober",
+    "Draft Land", "臺虎精釀", "ABV系列", "Bar TCRC", "Bar Home", "Phowa", "MOONROCK",
+    "50嵐", "得正", "五桐號", "龜記", "UG TEA", "叮哥茶飲", "CAFE!N", "%Arabica", "COMPOSE COFFEE",
+    "饗饗 INPARADISE", "NAGOMI",
+    "麥當勞"
+  ],
+  "excluded_stores": {
+    "7-11": "四大超商",
+    "全家": "四大超商",
+    "萊爾富": "四大超商",
+    "OK超商": "四大超商",
+    "繳稅費": "繳稅費"
+  },
+  "overseas_by_flag": ["Uber"]
+}

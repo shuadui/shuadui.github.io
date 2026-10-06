@@ -1,0 +1,22 @@
+# 本機筆記（計畫書等，不進公開 repo）
+notes/
+
+# Claude Code 本機設定
+.claude/
+
+# Python
+__pycache__/
+*.pyc
+
+# 系統檔
+.DS_Store
+Thumbs.db
+
+# 金鑰／密鑰（防呆：絕不進公開 repo）
+*.pem
+*.key
+.env
+.env.*
+
+# Office 開檔時的暫存鎖定檔
+~$*
