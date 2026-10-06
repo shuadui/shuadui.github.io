@@ -266,6 +266,52 @@
         || (a.pi - b.pi));
   }
 
+  // 台新Pay+ 的舉例店家都在日韓：國內消費不列，勾海外或店家本身在日韓才列
+  function paymentsFor(item) {
+    const foreign = !!item.overseas
+      || (!!item.store && item.store.raws.some((r) => /[(（](日本|韓國)[)）]/.test(r)));
+    return foreign ? PAYMENTS.slice() : PAYMENTS.filter((p) => p !== '台新Pay+');
+  }
+
+  // 「若該店可用台新Pay」這類要看店家收不收的回饋，不算確定拿得到
+  function isSure(r) {
+    return !String(r.condition || '').startsWith('若');
+  }
+
+  // 付款方式比較：同一筆消費用每種付款方式各排一次方案。
+  // best：確定拿得到的最佳「付款方式＋方案」；maybe：要看店家收不收、但比 best 高的選項。
+  // 同率時依序偏好：目前方案（不用切）→ 確定的 → 有額外優惠的 → 付款方式順序（刷卡優先）
+  function comparePayments(index, item, ctx, currentPlan) {
+    const byPayment = paymentsFor(item).map((payment, order) => {
+      const rows = rankPlans(index, Object.assign({}, item, { payment }), ctx, currentPlan);
+      return { payment, order, rows, top: rows[0].r.rate > 0 ? rows[0] : null };
+    });
+    const ranked = byPayment.filter((x) => x.top).sort((a, b) => (b.top.r.rate - a.top.r.rate)
+      || ((b.top.plan.name === currentPlan) - (a.top.plan.name === currentPlan))
+      || (isSure(b.top.r) - isSure(a.top.r))
+      || (Boolean(b.top.r.perk) - Boolean(a.top.r.perk))
+      || (a.order - b.order));
+    const best = ranked.find((x) => isSure(x.top.r)) || null;
+    const maybe = ranked.filter((x) => !isSure(x.top.r) && (!best || x.top.r.rate > best.top.r.rate));
+    const out = { byPayment, best, maybe, kind: 'none', diff: 0, cur: null, samePays: [], anyPayment: false };
+    if (!best) return out;
+    out.cur = best.rows.find((x) => x.plan.name === currentPlan) || null;
+    const curRate = out.cur ? out.cur.r.rate : 0;
+    if (!best.top.r.bonus) {
+      out.kind = 'base';
+    } else if (curRate >= best.top.r.rate) {
+      out.kind = 'stay';
+    } else {
+      out.kind = 'switch';
+      out.diff = best.top.r.rate - curRate;
+    }
+    out.samePays = byPayment
+      .filter((x) => x.top && x.top.plan === best.top.plan && x.top.r.rate === best.top.r.rate)
+      .map((x) => x.payment);
+    out.anyPayment = out.samePays.length === byPayment.length;
+    return out;
+  }
+
   function advise(rows, currentPlan) {
     const best = rows[0];
     if (!best || best.r.rate <= 0) return { kind: 'none' };
@@ -293,6 +339,6 @@
 
   root.RichartRules = {
     PAYMENTS, stripNote, normalize, keyOf, fmtRate, fmtDate, round1, todayTaipei, weekday, holidayInfo,
-    buildIndex, findStore, search, rateFor, rankPlans, advise, calcDay,
+    buildIndex, findStore, search, rateFor, rankPlans, advise, calcDay, paymentsFor, isSure, comparePayments,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

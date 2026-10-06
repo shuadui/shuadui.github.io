@@ -150,6 +150,51 @@
         [false, true, true, true, true, false, true, true]);
     });
 
+    // ---- 付款方式比較（查店家、清單外店家的結果）----
+    const cmp = (storeName, { date = '2026-10-06', overseas = false, kind = null, current = CUR } = {}) => {
+      const item = storeName
+        ? { store: store(storeName), overseas, dining: false }
+        : { store: null, overseas: overseas || kind === 'overseas', dining: kind === 'dining' };
+      const c = R.comparePayments(idx, item, ctxFor(date), current);
+      return {
+        best: c.best ? [c.best.payment, c.best.top.plan.name, c.best.top.r.rate] : null,
+        kind: c.kind, any: c.anyPayment, same: c.samePays,
+        maybe: c.maybe.map((x) => [x.payment, x.top.plan.name, x.top.r.rate]),
+        pays: c.byPayment.map((x) => x.payment),
+      };
+    };
+    test('付款比較：海底撈 → 切 Chill刷 10%，付款方式不限', () => {
+      const c = cmp('海底撈');
+      eq([c.best, c.kind, c.any, c.maybe], [['刷卡', 'Chill刷', 10], 'switch', true, []]);
+    });
+    test('付款比較：全家 → 用台新Pay＋Pay著刷 3.8%；目前就是 Pay著刷 → 不用切', () => {
+      const c = cmp('全家');
+      eq([c.best, c.kind, c.same], [['台新Pay', 'Pay著刷', 3.8], 'stay', ['台新Pay']]);
+    });
+    test('付款比較：麥當勞 → 台新Pay＋Pay著刷 3.8% 勝過刷卡＋好饗刷 3.3%', () =>
+      eq(cmp('麥當勞').best, ['台新Pay', 'Pay著刷', 3.8]));
+    test('付款比較：蝦皮 → 確定的最佳 3.3%；台新Pay 3.8% 列為「若店家可用」', () => {
+      const c = cmp('蝦皮');
+      eq([c.best, c.maybe], [['刷卡', 'Chill刷', 3.3], [['台新Pay', 'Pay著刷', 3.8]]]);
+    });
+    test('付款比較：國內不列台新Pay+；勾海外才列', () => {
+      eq(cmp('海底撈').pays, ['刷卡', '台新Pay', 'LINE Pay', '全盈+Pay']);
+      eq(cmp(null, { kind: 'overseas' }).pays, ['刷卡', '台新Pay', '台新Pay+', 'LINE Pay', '全盈+Pay']);
+    });
+    test('付款比較：海外清單外 → 確定的是玩旅刷 3.3%；台新Pay+ 3.8%（免手續費）排第一個可能', () => {
+      const c = cmp(null, { kind: 'overseas' });
+      eq([c.best, c.maybe[0]], [['刷卡', '玩旅刷', 3.3], ['台新Pay+', 'Pay著刷', 3.8]]);
+    });
+    test('付款比較：LAWSON(日本) → 台新Pay+ 明列，就是最佳', () => eq(cmp('LAWSON').best, ['台新Pay+', 'Pay著刷', 3.8]));
+    test('付款比較：平日清單外「其他」→ 沒有確定回饋，只列行動支付的可能', () => {
+      const c = cmp(null, { kind: 'general' });
+      eq([c.best, c.kind, c.maybe.map((m) => m[0])], [null, 'none', ['台新Pay', 'LINE Pay', '全盈+Pay']]);
+    });
+    test('付款比較：假日清單外「其他」→ 確定的是假日刷 2%（刷卡即可）', () => {
+      const c = cmp(null, { kind: 'general', date: '2026-10-17' });
+      eq([c.best, c.kind], [['刷卡', '假日刷', 2], 'switch']);
+    });
+
     // ---- 資料完整性 ----
     test('資料：店家筆數與計畫書 2.4 一致（259 筆、243 家）', () => {
       const entries = plans.plans.reduce((n, p) => n + p.channels.reduce((m, ch) => m + (ch.stores || []).length, 0), 0);

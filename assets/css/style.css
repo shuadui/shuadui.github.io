@@ -202,25 +202,39 @@ input:focus-visible, select:focus-visible, button:focus-visible, summary:focus-v
 }
 .badge.good { background: var(--good-soft); color: var(--good); }
 
+.best-label { color: var(--muted); font-size: 0.8rem; font-weight: 600; }
+
+.tip { margin: -4px 0 10px; color: var(--muted); font-size: 0.82rem; }
+.link.small { padding: 0 2px; font-size: 0.82rem; }
+
+.maybe { margin: 0 0 10px; padding: 8px 10px; border: 1px dashed var(--line); border-radius: 10px; font-size: 0.9rem; }
+.maybe-head { color: var(--muted); font-size: 0.85rem; }
+.maybe ul { margin: 4px 0 0; padding-left: 18px; }
+
 .sub-head { margin: 14px 0 4px; color: var(--muted); font-size: 0.9rem; }
 
-.others { margin: 0; padding: 0; list-style: none; }
-.others li {
+.pays { margin: 0; padding: 0; list-style: none; }
+.pays li {
   display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-areas: "plan rate" "meta meta";
+  grid-template-columns: 5.5em 1fr auto;
+  grid-template-areas: "pay plan rate" ". cond cond";
   column-gap: 10px;
-  padding: 8px 0;
+  align-items: baseline;
+  padding: 7px 6px;
   border-top: 1px solid var(--line);
 }
-.others .plan { grid-area: plan; font-weight: 600; }
-.others .rate { grid-area: rate; font-weight: 700; font-variant-numeric: tabular-nums; }
-.others .muted { grid-area: meta; font-size: 0.85rem; }
+.pays li.hit { border-radius: 8px; background: var(--accent-soft); }
+.pays .pay { grid-area: pay; color: var(--muted); }
+.pays .plan { grid-area: plan; font-weight: 600; }
+.pays .rate { grid-area: rate; font-weight: 700; font-variant-numeric: tabular-nums; }
+.pays .muted { grid-column: 2 / 4; }
+.pays .cond { grid-area: cond; color: var(--warn); font-size: 0.8rem; }
 
 details.na { margin-top: 10px; font-size: 0.88rem; }
 details.na summary { color: var(--muted); cursor: pointer; }
-details.na ul { margin: 6px 0 0; padding-left: 18px; }
-details.na .plan { margin-right: 6px; font-weight: 600; }
+.by-plan { margin: 6px 0 0; padding: 0; list-style: none; }
+.by-plan li { display: grid; grid-template-columns: 4.5em 1fr; column-gap: 8px; padding: 3px 0; }
+.by-plan .plan { font-weight: 600; }
 
 .fine { margin: 10px 0 0; color: var(--muted); font-size: 0.78rem; }
 
@@ -269,6 +283,15 @@ details.na .plan { margin-right: 6px; font-weight: 600; }
 .lines .name { grid-area: name; }
 .lines .amt { grid-area: amt; font-variant-numeric: tabular-nums; }
 .lines .muted { grid-area: meta; }
+
+/* ---- 設定（收在最下面） ---- */
+
+.settings > summary { list-style: none; font-size: 0.92rem; cursor: pointer; }
+.settings > summary::-webkit-details-marker { display: none; }
+.settings > summary::after { content: " ▾"; color: var(--muted); }
+.settings[open] > summary::after { content: " ▴"; }
+.settings .gear { color: var(--muted); }
+.settings-body { display: grid; gap: 6px; margin-top: 10px; }
 
 /* ---- 方案一覽、頁尾 ---- */
 

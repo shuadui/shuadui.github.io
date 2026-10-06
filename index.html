@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Richart 今天切哪個</title>
-  <meta name="description" content="台新 Richart 卡 8 個回饋方案：輸入店家，查今天該切哪個方案（非官方小工具）">
+  <meta name="description" content="台新 Richart 卡 8 個回饋方案：輸入店家，查用什麼付款、切哪個方案最划算（非官方小工具）">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#f4f5f7" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#131518" media="(prefers-color-scheme: dark)">
@@ -19,41 +19,6 @@
 
   <p id="appError" class="error" role="alert" hidden></p>
 
-  <section class="card settings" aria-label="設定">
-    <div class="field-row">
-      <label class="field">
-        <span>日期</span>
-        <input type="date" id="date">
-      </label>
-      <label class="check holiday-check">
-        <input type="checkbox" id="holiday">
-        <span>假日</span>
-      </label>
-      <button type="button" id="todayBtn" class="link" hidden>回到今天</button>
-    </div>
-    <p id="holidayLabel" class="hint"></p>
-    <div class="field-row">
-      <label class="field">
-        <span>付款方式</span>
-        <select id="payment"></select>
-      </label>
-      <label class="field">
-        <span>目前方案</span>
-        <select id="currentPlan"></select>
-      </label>
-    </div>
-    <p id="currentPlanHint" class="hint warn-text"></p>
-    <details class="advanced">
-      <summary>進階設定</summary>
-      <label class="field inline">
-        <span>非指定通路的基本回饋</span>
-        <input type="number" id="baseRate" min="0" max="5" step="0.1" inputmode="decimal">
-        <span>%</span>
-      </label>
-      <p class="hint">截圖沒有列出基本回饋率，預設 0%。只用在沒有命中任何類別的消費（指定類別的回饋率視為已含基本回饋）；不回饋項目不適用。</p>
-    </details>
-  </section>
-
   <nav class="tabs" role="tablist" aria-label="功能">
     <button type="button" role="tab" id="tab-lookup" aria-selected="true" aria-controls="panel-lookup">查店家</button>
     <button type="button" role="tab" id="tab-calc" aria-selected="false" aria-controls="panel-calc">今日試算</button>
@@ -63,8 +28,8 @@
     <section id="panel-lookup" role="tabpanel" aria-labelledby="tab-lookup">
       <div class="card">
         <label class="search">
-          <span class="visually-hidden">店名</span>
-          <input type="search" id="q" placeholder="輸入店名，例如：全家、Netflix、海底撈" autocomplete="off" enterkeyhint="search">
+          <span class="visually-hidden">店名或通路</span>
+          <input type="search" id="q" placeholder="輸入店名或通路，例如：全家、Netflix、海底撈" autocomplete="off" enterkeyhint="search">
         </label>
         <label class="check">
           <input type="checkbox" id="lookupOverseas">
@@ -77,7 +42,7 @@
 
       <div class="card offlist" id="offlist">
         <h2>清單上沒有的店</h2>
-        <p class="hint">依消費類型判斷，會套用上方的日期、假日與付款方式。</p>
+        <p class="hint">依消費類型判斷，並比較各種付款方式。</p>
         <div class="chips" id="offlistKinds">
           <button type="button" class="chip" data-kind="dining" aria-pressed="false">餐飲</button>
           <button type="button" class="chip" data-kind="overseas" aria-pressed="false">海外消費</button>
@@ -91,7 +56,7 @@
       <form id="addForm" class="card add-form" autocomplete="off">
         <label class="field">
           <span>店家</span>
-          <input type="text" id="calcStore" placeholder="輸入店名" enterkeyhint="next">
+          <input type="text" id="calcStore" placeholder="輸入店名或通路" enterkeyhint="next">
         </label>
         <div id="suggest" class="chips suggest"></div>
         <div class="field-row">
@@ -127,13 +92,47 @@
     </section>
   </main>
 
+  <details class="card settings" id="settings">
+    <summary id="settingsSummary">設定</summary>
+    <div class="settings-body">
+      <div class="field-row">
+        <label class="field">
+          <span>日期</span>
+          <input type="date" id="date">
+        </label>
+        <label class="check holiday-check">
+          <input type="checkbox" id="holiday">
+          <span>假日</span>
+        </label>
+        <button type="button" id="todayBtn" class="link" hidden>回到今天</button>
+      </div>
+      <p id="holidayLabel" class="hint"></p>
+      <label class="field">
+        <span>目前方案（App 裡現在套用的方案）</span>
+        <select id="currentPlan"></select>
+      </label>
+      <p id="currentPlanHint" class="hint warn-text"></p>
+      <details class="advanced">
+        <summary>進階設定</summary>
+        <label class="field inline">
+          <span>非指定通路的基本回饋</span>
+          <input type="number" id="baseRate" min="0" max="5" step="0.1" inputmode="decimal">
+          <span>%</span>
+        </label>
+        <p class="hint">截圖沒有列出基本回饋率，預設 0%。只用在沒有命中任何類別的消費（指定類別的回饋率視為已含基本回饋）；不回饋項目不適用。</p>
+      </details>
+    </div>
+  </details>
+
   <footer>
     <details class="card plans-overview">
       <summary>8 個方案一覽</summary>
       <div id="planList"></div>
     </details>
     <ul class="notes">
-      <li>回饋率是官方標示的「最高」值；各類別細則（是否接受行動支付、適用門市等）以台新官網「注意事項」為準。</li>
+      <li>當天 00:00–23:59 的消費，都依當天最後套用的方案計算：可以付完款再切，但一天只能切一次，而且切換會連同名下所有 Richart 卡一起換。</li>
+      <li>回饋率是官方標示的「最高」值；各類別細則（是否接受行動支付、適用門市、消費日怎麼認定等）以台新官網「注意事項」為準。</li>
+      <li>「若店家可用」：Pay著刷 只看付款方式，店家清單只是舉例；店家收不收台新Pay、LINE Pay 等要自己確認。</li>
       <li>不回饋項目：四大超商（7-11、全家、萊爾富、OK超商）、繳稅費等。全家、7-11 只在 Pay著刷（台新Pay）與天天刷（限台新Pay）明列時有回饋。</li>
       <li>加碼回饋的消費金額上限是永久信用額度加計 NT$30 萬，本工具不計算上限。</li>
       <li>假日依行政院人事行政總處 115、116 年辦公日曆表（含補假）。</li>

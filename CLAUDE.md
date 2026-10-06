@@ -17,11 +17,13 @@
 ## 與計畫書不同的決定（2026-10-06）
 - 部署改走 GitHub Pages（計畫書原本是 artifact），資料拆成 `data/*.json`，不內嵌在 HTML。
 - 三個功能都做：查店家、清單外店家、今日試算。
+- 版面：查店家放最上面，日期／假日／目前方案收在最下面一行（使用者選的 A 版）。
+- 查店家、清單外店家不再用全域付款方式，改成比較各付款方式（`comparePayments`）；「若店家可用」的回饋列為可能、不當最佳；台新Pay+ 只在海外或日韓店家才列。
 
 ## 協作規則
 - 任何程式碼修改前，先說明計畫，等確認後才動工
 - 不自行 push、不開 PR；push 前先列出 remote URL、分支、commit 作者、要推的檔案，等確認
-- commit 作者用 repo-local 設定（GitHub noreply 信箱），不要改用全域 git 身分
+- commit 作者用 repo-local 設定（GitHub noreply 信箱），不要改用全域 git 身分；commit 訊息不加 Co-Authored-By
 - remote URL 要內嵌帳號（`https://yachiof94@github.com/yachiof94/richart-tool.git`），Git Credential Manager 才會挑對帳號的憑證
 
 ## 本機測試
